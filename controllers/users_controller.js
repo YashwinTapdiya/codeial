@@ -133,3 +133,7 @@ module.exports.createSession = async function (req, res) {
     console.log('error in finding user in signing in:', err);
   }
 };
+
+module.exports.signOut = async function (req , res){
+  //TODO
+}
