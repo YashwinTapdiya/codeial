@@ -7,4 +7,10 @@ console.log('router loaded');
 
 // 
 router.get('/' , homeController.home )
+//this router handles users request
+router.use('/users' , require('./users'))
+
+//for any furthur routes, access from here
+//router.use('/routerName' , require('./routerfile'))
+
 module.exports = router;
