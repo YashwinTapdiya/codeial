@@ -1,11 +1,49 @@
 const User = require('../models/user');
 
 
-module.exports.profile = function(req, res){
-    return res.render('user_profile', {
-        title: 'User Profile'
-    })
-}
+module.exports.profile = async function (req, res) {
+  try {
+    if (req.cookies.user_id) {
+      const user = await User.findById(req.cookies.user_id);
+
+      if (user) {
+        return res.render('user_profile', {
+          title: "User Profile",
+          user: user
+        });
+      }
+
+      return res.redirect('/users/sign-in');
+    } else {
+      return res.redirect('/users/sign-in');
+    }
+  } catch (err) {
+    console.log('Error in retrieving user profile:', err);
+  }
+};
+
+
+// module.exports.profile = function(req, res){
+//   if(req.cookies.user_id){
+//     User.findById(req.cookies.user_id, function(err, user){
+//       if(user){
+//         return res.render('user_profile' , {
+//           title: "User Profile" ,
+//           user: User
+//         })
+//       }
+
+//       return res.redirect('/users/sign-in');
+//     })
+//   }
+//   else{
+//     return res.redirect('/users/sign-in');
+//   }
+//     // return res.render('user_profile', {
+//     //     title: 'User Profile'
+//     // })
+// }
+
 
 
 // render the sign up page
