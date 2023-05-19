@@ -1,53 +1,47 @@
+const User = require('../models/user');
 const passport = require('passport');
-//acquring the passpot-local specially the strategy
 const LocalStrategy = require('passport-local').Strategy;
 
-const User = require('../models/user');
+//update passport-local strategy code to use the promise-based syntax
 
-// authentication using passport
-passport.use(new LocalStrategy({
-        usernameField: 'email'
+// Configure the local strategy for passport
+passport.use(
+  new LocalStrategy(
+    {
+      usernameField: 'email',
+      passReqToCallback: true,
     },
-    function(email, password, done){
-        // find a user and establish the identity
-        User.findOne({email: email}, function(err, user)  {
-            if (err){
-                console.log('Error in finding user --> Passport');
-                return done(err);
-            }
+    async function(req, email, password, done) {
+      try {
+        // Find the user using the email
+        const user = await User.findOne({ email: email });
 
-            if (!user || user.password != password){
-                console.log('Invalid Username/Password');
-                return done(null, false);
-            }
-
-            return done(null, user);
-        });
-    }
-
-
-));
-
-
-// serializing the user to decide which key is to be kept in the cookies
-passport.serializeUser(function(user, done){
-    done(null, user.id);
-});
-
-
-
-// deserializing the user from the key in the cookies
-passport.deserializeUser(function(id, done){
-    User.findById(id, function(err, user){
-        if(err){
-            console.log('Error in finding user --> Passport');
-            return done(err);
+        if (!user || user.password != password) {
+          // Invalid credentials
+          return done(null, false);
         }
 
+        // Valid user
         return done(null, user);
-    });
+      } catch (err) {
+        console.log('Error in passport-local strategy:', err);
+        return done(err);
+      }
+    }
+  )
+);
+
+// Serialize the user to store in the session
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
 });
 
-
-
-module.exports = passport;
+// Deserialize the user from the session
+passport.deserializeUser(async function(id, done) {
+  try {
+    const user = await User.findById(id);
+    return done(null, user);
+  } catch (err) {
+    return done(err);
+  }
+});
