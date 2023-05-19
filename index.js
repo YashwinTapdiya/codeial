@@ -9,6 +9,7 @@ const db = require('./config/mongoose');
 const session = require('express-session');
 const passport =require('passport');
 const passportLocal = require('./config/passport-local-strategy');
+const MongoStore = require('connect-mongo')(session);
 
 
 app.use(express.urlencoded());
@@ -23,7 +24,8 @@ app.set('layout extractScripts' , true);
 //set up the view engine
 app.set('view engine' , 'ejs');
 app.set('views' , './views');
-
+ 
+// Mongo Store is used to store the session cookie in the database
 app.use(session({
     name: 'InstaBook' ,
     //TODO change the secret before deployment in production mode
@@ -32,8 +34,17 @@ app.use(session({
     resave: false,
     cookie:{
         maxAge: (100*60*100)
-    }
-}))
+    },
+    store: new MongoStore(
+        {
+            mongooseConnection: db,
+            autoRemove: 'disabled'
+        },
+        function(err){
+            console.log(err || "connect-mongoDB setup OK");
+        }
+    )
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());
