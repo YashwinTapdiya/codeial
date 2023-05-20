@@ -32,18 +32,41 @@ module.exports.home = function(req, res){
 
 
 //populate the user of each post
+// module.exports.home = function(req, res) {
+//     Post.find({})
+//         .populate('user')
+//         .exec()
+//         .then(posts => {
+//             return res.render('home', {
+//                 title: "InstaBook | Home",
+//                 posts: posts
+//             });
+//         })
+//         .catch(err => {
+//             console.log("Error in fetching posts", err);
+//             return res.redirect('back');
+//         });
+// };
+
 module.exports.home = function(req, res) {
     Post.find({})
-        .populate('user')
-        .exec()
-        .then(posts => {
-            return res.render('home', {
-                title: "InstaBook | Home",
-                posts: posts
-            });
-        })
-        .catch(err => {
-            console.log("Error in fetching posts", err);
-            return res.redirect('back');
+      .populate('user')
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'user'
+        }
+      })
+      .exec()
+      .then(posts => {
+        return res.render('home', {
+          title: "InstaBook | Home",
+          posts: posts
         });
-};
+      })
+      .catch(err => {
+        console.log("Error in fetching posts", err);
+        return res.redirect('/');
+      });
+  };
+  
