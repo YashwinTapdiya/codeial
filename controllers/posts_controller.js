@@ -1,4 +1,5 @@
 const Post = require('../models/post');
+const Comment = require('../models/comment');
 
 module.exports.create = function(req, res){
     Post.create({
@@ -13,3 +14,21 @@ module.exports.create = function(req, res){
         return;
     });
 };
+
+module.exports.destroy = function(req, res) {
+    Post.deleteOne({ _id: req.params.id, user: req.user.id })
+      .then(() => {
+        Comment.deleteMany({ post: req.params.id }, function(err) {
+          if (err) {
+            console.log('Error in deleting comments', err);
+            return;
+          }
+          return res.redirect('back');
+        });
+      })
+      .catch(err => {
+        console.log('Error in deleting post', err);
+        return res.redirect('back');
+      });
+  };
+  
