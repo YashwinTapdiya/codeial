@@ -9,13 +9,25 @@ const db = require('./config/mongoose');
 const session = require('express-session');
 const passport =require('passport');
 const passportLocal = require('./config/passport-local-strategy');
-const MongoStore = require('connect-mongo')(session);
-
+//const MongoStore = require('connect-mongo')(session);
+const MongoDBStore = require('connect-mongodb-session')(session);
+const store = new MongoDBStore({
+    mongooseConnection: db,
+    uri: 'mongodb://127.0.0.1:27017/InstaBook-data',
+    collection: 'mySessions',
+    autoRemove: 'disabled'
+  });
+  // Catch errors
+store.on('error', function(error) {
+    console.log(error);
+  });
+  
 
 app.use(express.urlencoded());
 app.use(cookieParser());
 app.use(express.static('./assests'));
 app.use(expressLayouts);
+
 //extract style and scripts from sub pages into the layout
 app.set('layout extractStyles' , true);
 app.set('layout extractScripts' , true);
@@ -24,26 +36,15 @@ app.set('layout extractScripts' , true);
 //set up the view engine
 app.set('view engine' , 'ejs');
 app.set('views' , './views');
- 
-// Mongo Store is used to store the session cookie in the database
-app.use(session({
-    name: 'InstaBook' ,
-    //TODO change the secret before deployment in production mode
-    secret: 'blahsomethin',
-    saveUninitialized: false,
-    resave: false,
-    cookie:{
-        maxAge: (100*60*100)
+
+app.use(require('express-session')({
+    secret: 'This is a secret',
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
     },
-    store: new MongoStore(
-        {
-            mongooseConnection: db,
-            autoRemove: 'disabled'
-        },
-        function(err){
-            console.log(err || "connect-mongoDB setup OK");
-        }
-    )
+    store: store,
+    resave: false,
+    saveUninitialized: false
 }));
 
 app.use(passport.initialize());
