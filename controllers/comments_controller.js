@@ -1,36 +1,3 @@
-// const Comment = require('../models/comment');
-// const Post = require('../models/post');
-
-// module.exports.create = function(req, res){
-//     // 'req.body.post' , here 'post' is the name of hidden input in comment-form
-//     Post.findById(req.body.post, function(err, post){    
-//         if(err){
-//             console.log("Error in finding post");
-//             return;
-//         }
-
-//         if(post){
-//             Comment.create({
-//                 content: req.body.content,
-//                 user: req.user._id,
-//                 post: req.body.post   // or post._id
-//             }, function(err, comment){
-//                 if(err){
-//                     console.log("Error in creating comment to post");
-//                     return;
-//                 }
-
-//                 // adding comment to the post (comment array defined in postSchema)
-//                 post.comments.push(comment);
-//                 post.save();
-
-//                 return res.redirect('/');
-//             });
-//         }
-//     });
-// };
-
-
 const Comment = require('../models/comment');
 const Post = require('../models/post');
 
@@ -51,6 +18,30 @@ module.exports.create = async function(req, res) {
     }
   } catch (err) {
     console.log("Error in creating comment to post", err);
+    return res.redirect('back');
+  }
+};
+
+module.exports.destroy = async function(req, res) {
+  try {
+    const comment = await Comment.findById(req.params.id);
+    if (!comment) {
+      return res.redirect('back');
+    }
+
+    if (comment.user.toString() === req.user.id) {
+      const postId = comment.post;
+
+      await comment.deleteOne();
+
+      await Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.id } });
+
+      return res.redirect('back');
+    } else {
+      return res.redirect('back');
+    }
+  } catch (err) {
+    console.log(err);
     return res.redirect('back');
   }
 };
