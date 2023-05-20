@@ -49,8 +49,18 @@ module.exports.create = async function(req, res) {
     }
   };
 
-
 // sign in and create a session for the user
 module.exports.createSession = function(req, res){
     return res.redirect('/');
 }
+
+//sign out
+module.exports.destorySession = function(req, res){
+  req.logout(function(err){
+    if(err){
+      console.log('Error in logging out:', err);
+      return;
+    }
+    return res.redirect('/');
+  });
+};
