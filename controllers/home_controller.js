@@ -1,3 +1,5 @@
+const Post = require('../models/post');
+
 module.exports.home = function(req, res){
    // console.log(req.cookies);
   //  res.cookie('user_id' , 30);
@@ -9,3 +11,21 @@ module.exports.home = function(req, res){
 
 //by this we can add more actions syntax
 // module.exports.actionName = function(req, res){}
+
+// this query will return all the posts
+//const Post = require('../models/post');
+
+module.exports.home = function(req, res) {
+    Post.find({})
+        .exec()
+        .then(posts => {
+            return res.render('home', {
+                title: "InstaBook | Home",
+                posts: posts
+            });
+        })
+        .catch(err => {
+            console.log("Error in fetching posts", err);
+            return res.redirect('back');
+        });
+};

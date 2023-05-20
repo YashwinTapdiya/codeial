@@ -1,56 +1,66 @@
 /* home.css */
 
+/* General styles */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
+  background-color: #f0f0f0;
   margin: 0;
   padding: 0;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
 h1 {
   text-align: center;
-  color: #333;
-  margin-top: 50px;
+  margin-top: 30px;
 }
 
 #feed-posts {
   background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
+  margin: 20px auto;
+  width: 70%;
+  border-radius: 5px;
 }
 
-h4 {
-  margin-top: 0;
-  color: #333;
+#new-post-form {
+  margin-bottom: 10px;
 }
 
-#new-post-form textarea {
+textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 3px;
-  resize: vertical;
+  border-radius: 5px;
 }
 
-#new-post-form input[type="submit"] {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  background-color: #333;
+input[type="submit"] {
+  background-color: #4CAF50;
   color: #fff;
   border: none;
-  border-radius: 3px;
+  padding: 10px 20px;
+  border-radius: 5px;
   cursor: pointer;
-  margin-top: 10px;
 }
 
-#new-post-form input[type="submit"]:hover {
-  background-color: #555;
+#posts-list-container ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#posts-list-container li {
+  background-color: #fff;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+#posts-list-container p {
+  margin: 0;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  #feed-posts {
+    width: 90%;
+  }
 }
