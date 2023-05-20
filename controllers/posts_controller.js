@@ -18,7 +18,7 @@ module.exports.create = function(req, res){
 module.exports.destroy = function(req, res) {
     Post.deleteOne({ _id: req.params.id, user: req.user.id })
       .then(() => {
-        Comment.deleteMany({ post: req.params.id }, function(err) {
+        Comment.deleteOne({ post: req.params.id }, function(err) {
           if (err) {
             console.log('Error in deleting comments', err);
             return;
