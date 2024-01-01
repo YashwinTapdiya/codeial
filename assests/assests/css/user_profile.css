@@ -1,0 +1,19 @@
+/* user_profile.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #333;
+    margin-top: 50px;
+  }
+  
+  p {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  
