@@ -46,6 +46,7 @@ app.set('view engine' , 'ejs');
 app.set('views' , './views');
 
 app.use(require('express-session')({
+    name: 'InstaWall',
     secret: 'This is a secret',
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
