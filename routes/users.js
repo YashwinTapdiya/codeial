@@ -6,6 +6,8 @@ const usersConrtoller = require('../controllers/users_controller');
 
 router.get('/profile/:id', passport.checkAuthentication ,usersConrtoller.profile);
 
+router.post('/update/:id',passport.checkAuthentication, usersConrtoller.update);
+
 router.get('/sign-up' , usersConrtoller.signUp);
 
 router.get('/sign-in' , usersConrtoller.signIn);

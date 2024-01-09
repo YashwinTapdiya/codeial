@@ -55,6 +55,17 @@ module.exports.create = async function(req, res) {
     }
   };
 
+module.exports.update = function(req,res){
+  if(req.user.id == req.params.id){
+    User.findByIdAndUpdate(req.params.id,req.body)
+    .then((user)=> res.redirect('back'))
+    .catch((err)=> console.log(err));
+  }
+  else{
+    return res.status(401).send('Unauthorized');
+  }
+}
+
 // sign in and create a session for the user
 module.exports.createSession = function(req, res){
     return res.redirect('/');
@@ -70,3 +81,4 @@ module.exports.destorySession = function(req, res){
     return res.redirect('/');
   });
 };
+

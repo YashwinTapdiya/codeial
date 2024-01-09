@@ -17,18 +17,13 @@ module.exports.create = function(req, res){
 
 module.exports.destroy = function(req, res) {
     Post.deleteOne({ _id: req.params.id, user: req.user.id })
-      .then(() => {
-        Comment.deleteOne({ post: req.params.id }, function(err) {
-          if (err) {
-            console.log('Error in deleting comments', err);
-            return;
-          }
-          return res.redirect('back');
-        });
+    .then(()=>{
+      Comment.deleteOne({post: req.params.id})
+      .then(()=> res.redirect('back'))
+      .catch((err)=>{
+        console.log('Error in deleting comments', err);
+        return;
       })
-      .catch(err => {
-        console.log('Error in deleting post', err);
-        return res.redirect('back');
-      });
+    })
   };
   
