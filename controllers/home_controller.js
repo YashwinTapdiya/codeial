@@ -11,29 +11,26 @@ module.exports.home = function(req, res){
     //return res.end('<h1>Express is up for InstaBook!</h1>')
 }
 
-module.exports.home = function(req, res) {
-    Post.find({})
-      .populate('user')
-      .populate({
-        path: 'comments',
-        populate: {
-          path: 'user'
-        }
-      })
-      .exec()
-      .then(posts => {
-        User.find({}).then((user)=>{
-          return res.render('home', {
-            title: "InstaBook | Home",
-            posts: posts,
-            all_users: user
-          });
-        })
-        
-      })
-      .catch(err => {
-        console.log("Error in fetching posts", err);
-        return res.redirect('/');
-      });
+module.exports.home = async function(req, res) {
+  try{
+    let post = await Post.find({})
+    .populate('user')
+    .populate({
+      path: 'comments',
+      populate:{
+        path: 'user'
+      }
+    });
+
+    let users = await User.find({});
+
+    return res.render('home',{
+      title: "InstaBook | Home",
+      posts: post,
+      all_users: users
+    })
+  }catch(err){
+    console.log('Error',err);
+  }
   };
   

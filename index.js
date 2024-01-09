@@ -11,6 +11,8 @@ const passport =require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 //const MongoStore = require('connect-mongo')(session);
 const MongoDBStore = require('connect-mongodb-session')(session);
+const flash = require('connect-flash');
+const customMware = require('./config/middleware');
 const store = new MongoDBStore({
     mongooseConnection: db,
     uri: 'mongodb://127.0.0.1:27017/InstaBook-data',
@@ -60,6 +62,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(passport.setAuthenticatedUser);
+
+app.use(flash());
+app.use(customMware.setFlash);
 
 //use express router
 app.use('/' , require('./routes'));
