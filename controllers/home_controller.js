@@ -1,4 +1,5 @@
 const Post = require('../models/post');
+const User = require('../models/user');
 
 
 module.exports.home = function(req, res){
@@ -21,10 +22,14 @@ module.exports.home = function(req, res) {
       })
       .exec()
       .then(posts => {
-        return res.render('home', {
-          title: "InstaBook | Home",
-          posts: posts
-        });
+        User.find({}).then((user)=>{
+          return res.render('home', {
+            title: "InstaBook | Home",
+            posts: posts,
+            all_users: user
+          });
+        })
+        
       })
       .catch(err => {
         console.log("Error in fetching posts", err);
