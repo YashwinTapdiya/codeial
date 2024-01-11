@@ -21,7 +21,7 @@ module.exports.destroy = async function(req, res) {
       user: req.user.id
     });
     await Comment.deleteOne({
-      ppost: req.params.id
+      post: req.params.id
     });
     return res.redirect('back');
   } catch (error) {
