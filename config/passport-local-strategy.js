@@ -11,21 +11,20 @@ passport.use(
       usernameField: 'email',
       passReqToCallback: true,
     },
-    async function(req, email, password, done) {
+    async function(req,email,password,done){
       try {
         // Find the user using the email
-        const user = await User.findOne({ email: email });
+        const user = await User.findOne({email: email});
 
-        if (!user || user.password != password) {
-          // Invalid credentials
-          return done(null, false);
+        if(!user || user.password != password){
+          // Invalid credintials
+          return done(null,false);
         }
-
-        // Valid user
-        return done(null, user);
-      } catch (err) {
-        console.log('Error in passport-local strategy:', err);
-        return done(err);
+        //valid user
+        return done(null,user);
+      } catch (error) {
+        console.log("Error in passport-local strategy:",error);
+        return done(error);
       }
     }
   )
