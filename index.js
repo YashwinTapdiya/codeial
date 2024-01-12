@@ -17,7 +17,7 @@ const flash = require('connect-flash');
 const customMware = require('./config/middleware');
 const store = new MongoDBStore({
     mongooseConnection: db,
-    uri: 'mongodb://127.0.0.1:27017/InstaBook-Development',
+    uri: 'mongodb://127.0.0.1:27017/InstaBook-Develpment',
     collection: 'mySessions',
     autoRemove: 'disabled'
   });
@@ -35,7 +35,7 @@ app.use(sassMiddleware({
 }));
 
 
-app.use(express.giturlencoded());
+app.use(express.urlencoded());
 app.use(cookieParser());
 app.use(express.static('./assests'));
 app.use(expressLayouts);
