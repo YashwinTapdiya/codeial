@@ -17,7 +17,7 @@ const flash = require('connect-flash');
 const customMware = require('./config/middleware');
 const store = new MongoDBStore({
     mongooseConnection: db,
-    uri: 'mongodb://127.0.0.1:27017/InstaBook-Develpment',
+    uri: 'mongodb://127.0.0.1:27017/InstaBook-Development',
     collection: 'mySessions',
     autoRemove: 'disabled'
   });
