@@ -2,15 +2,16 @@ const nodemailer = require("nodemailer");
 const ejs = require('ejs');
 const path = require('path')
 
+let testAccount = nodemailer.createTestAccount();
 
 let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    host: 'smtp.gmail.com',
+    //service: 'gmail',
+    host: 'smtp.ethereal.email',
     port: 587,
     secure: false,
     auth: {
-        user: 'surajmeenanoob@gmail.com',
-        pass: '******'
+        user: "orlando.rau@ethereal.email",
+        pass: "tDnEY8t681XBNHewqE"
     }
 });
 
@@ -26,7 +27,6 @@ let renderTemplate = (data, relativePath) => {
          mailHTML = template;
         }
     )
-
     return mailHTML;
 }
 
