@@ -10,13 +10,14 @@ const session = require('express-session');
 const passport =require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 const passportJWT = require('./config/passport-jwt-strategy');
+const passportGoogle = require('./config/passport-google-oauth2-strategy');
 
 const MongoDBStore = require('connect-mongodb-session')(session);
 const flash = require('connect-flash');
 const customMware = require('./config/middleware');
 const store = new MongoDBStore({
     mongooseConnection: db,
-    uri: 'mongodb://127.0.0.1:27017/InstaBook-data',
+    uri: 'mongodb://127.0.0.1:27017/InstaBook-Development',
     collection: 'mySessions',
     autoRemove: 'disabled'
   });
@@ -34,7 +35,7 @@ app.use(sassMiddleware({
 }));
 
 
-app.use(express.urlencoded());
+app.use(express.giturlencoded());
 app.use(cookieParser());
 app.use(express.static('./assests'));
 app.use(expressLayouts);
