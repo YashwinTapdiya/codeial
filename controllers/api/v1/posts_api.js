@@ -11,13 +11,19 @@ module.exports.index = async function(req,res){
 
 module.exports.destroy = async function(req,res){
     try {
-        const post = await Post.findById(req.params.id);
-        post.deleteOne();
-        await Comment.deleteMany({post: req.params.id});
+        let post = await Post.findById(req.params.id);
+        if(post.user == req.user.id){
+            post.deleteOne();
+            await Comment.deleteMany({post: req.params.id});
 
-        return res.status(200).json({
-            message: "Post and comments deleted"
-        })
+            res.status(200).json({
+                message: "Post and comments deleted"
+            });
+        }else{
+            return res.status(401).json({
+                message: "You cannot delete this post"
+            });
+        }
       } catch (error) {
         console.log("Error in deleting comments",error);
         return res.status(501).json({
