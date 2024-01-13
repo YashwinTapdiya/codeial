@@ -1,9 +1,10 @@
 const Post = require('../models/post');
 const Comment = require('../models/comment');
+const Like = require('../models/like');
 
 module.exports.create = async function(req, res){
   try {
-    const post = await Post.create({
+    let post = await Post.create({
       content: req.body.content,
       user: req.user._id
     });
@@ -16,16 +17,26 @@ module.exports.create = async function(req, res){
 
 module.exports.destroy = async function(req, res) {
   try {
-    await Post.deleteOne({
-      _id: req.params.id,
-      user: req.user.id
-    });
-    await Comment.deleteOne({
-      post: req.params.id
-    });
-    return res.redirect('back');
+    let post = await Post.findById(req.params.id);
+    if(post.user == req.user.id){
+      //User can only delete it own posts
+      
+      // delete the associated likes for the post and all its comments likes too
+      // "$in" operator will select all the comments (comment._id) from the 'post.comments' array
+      await Like.deleteMany({ likeable: post, onModel: 'Post' });
+      await Like.deleteMany({ _id: { $in: post.comments } });
+
+      await post.deleteOne();
+      await Comment.deleteMany({ post: req.params.id });
+      req.flash('success', 'Post and associated comments deleted!');
+      return res.redirect('back');
+    }else{
+      req.flash('error', 'You cannot delete this post!');
+      return res.redirect('back');
+    }
   } catch (error) {
     console.log("Error in deleting comments",error);
+    req.flash('error', error);
     return res.redirect('back');
   }
 };
