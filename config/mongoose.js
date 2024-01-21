@@ -1,12 +1,12 @@
 // getting-started.js
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-main().catch(err => console.log(err));
+main().catch((err) => console.log(err));
 
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/InstaBook-Development');
+  await mongoose.connect("mongodb://127.0.0.1:27017/InstaBook-Development");
   console.log("Database connceted");
-   //use 
-   //await mongoose.connect('mongodb://user:password@127.0.0.1:27017/InstaBook-data'); 
+  //use
+  //await mongoose.connect('mongodb://user:password@127.0.0.1:27017/InstaBook-data');
   //if your database has auth enabled
 }

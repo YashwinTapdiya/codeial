@@ -1,25 +1,21 @@
-/* user_profile.css */
-
 body {
-    font-family: Arial, sans-serif;
-    background-color: lightskyblue;
-  }
-  
-  h1 {
-    text-align: center;
-    color: #333;
-    margin-top: 50px;
-  }
-  
-  p {
-    text-align: center;
-    margin-bottom: 10px;
-  }
+  font-family: Arial, sans-serif;
+  background-color: lightskyblue;
+}
 
-img{
+h1 {
+  text-align: center;
+  color: #333;
+  margin-top: 50px;
+}
+
+p {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+img {
   width: 200px;
   height: 200px;
   border: 1px solid red;
 }
-  
-  
