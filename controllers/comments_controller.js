@@ -12,16 +12,14 @@ module.exports.create = async function (req, res) {
     if (post) {
       let comment = await Comment.create({
         content: req.body.content,
-        user: req.user._id,
         post: req.body.post,
-      });
+        user: req.user._id
+    });
 
-      // adding comment to the post (comment array defined in postSchema)
-      post.comments.push(comment);
-      await post.save();
+    post.comments.push(comment);
+    post.save();
 
-      // populating 'user' (with 'name' & 'email' keys) in 'comment' everytime a new comment is created
-      comment = await comment.populate("user", "name email");
+    comment = await comment.populate('user', 'name');
       //commentsMailer.newComment(comment);
       let job = queue.create("emails", comment).save(function (err) {
         if (err) {

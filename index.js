@@ -23,7 +23,7 @@ const store = new MongoDBStore({
 });
 // Catch errors
 store.on("error", function (error) {
-  console.log(error);
+  //console.log(error);
 });
 const sassMiddleware = require("sass-middleware");
 app.use(

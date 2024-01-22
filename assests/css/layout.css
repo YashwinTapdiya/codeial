@@ -2,5 +2,6 @@ body {
   margin: 0;
 }
 body #layout-main {
-  height: 100%;
+  height: auto;
+  min-height: 100%;
 }

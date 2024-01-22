@@ -1,67 +1,17 @@
-#body-main{
-    display: flex;
+#home-container {
+  display: flex;
 }
-
-#user-info{
-    width: 20%;
+#home-container #user-nav {
+  width: 20%;
+  padding: 10px;
+  border-right: 1px solid lightgrey;
 }
-
-#feed-posts{
-    width: 60%;
+#home-container #feed-posts {
+  width: 55%;
+  padding: 10px;
 }
-
-#user-friends{
-    width: 20%;
+#home-container #user-friends {
+  width: 25%;
+  padding: 10px;
+  border-left: 1px solid lightgrey;
 }
-
-#feed-posts {
-    width: 50%;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-#new-post-form {
-    margin-bottom: 20px;
-}
-
-#new-post-form textarea {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-#new-post-form input[type="submit"] {
-    background-color: #343a40;
-    color: #fff;
-    padding: 10px 15px;
-    border: none;
-    cursor: pointer;
-}
-
-#new-post-form input[type="submit"]:hover {
-    background-color: #555;
-}
-
-#posts-list-container ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-#posts-list-container ul li {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 15px;
-}
-
-#posts-list-container ul li h5 {
-    margin: 0 0 10px;
-}
-
-#posts-list-container ul li p {
-    margin: 0;
-}
-
-
