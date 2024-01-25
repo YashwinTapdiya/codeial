@@ -10,9 +10,7 @@
     </small>
     <% } %> <%= comment.content %>
     <br />
-    <small>
-      <%= comment.user.name %>
-  </small>
+    <small> comment from: <%= comment.user.name %> </small>
     <br />
     <small>
       <% if(locals.user) { %>

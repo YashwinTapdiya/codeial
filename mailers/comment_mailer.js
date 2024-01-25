@@ -2,7 +2,7 @@ const nodeMailer = require("../config/nodemailer");
 
 // this is another way of exporting a method
 exports.newComment = (comment) => {
-  console.log("Inside newComment mailer", comment);
+  //console.log("Inside newComment mailer", comment);
 
   let htmlString = nodeMailer.renderTemplate(
     { comment: comment },
@@ -22,7 +22,7 @@ exports.newComment = (comment) => {
         return;
       }
 
-      console.log("Message sent", info);
+      //console.log("Message sent", info);
       return;
     }
   );

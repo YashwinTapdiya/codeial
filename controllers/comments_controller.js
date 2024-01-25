@@ -13,20 +13,19 @@ module.exports.create = async function (req, res) {
       let comment = await Comment.create({
         content: req.body.content,
         post: req.body.post,
-        user: req.user._id
-    });
+        user: req.user._id,
+      });
+      //comment = await comment.populate('user', 'name email');
+      post.comments.push(comment);
+      post.save();
 
-    post.comments.push(comment);
-    post.save();
-
-    comment = await comment.populate('user', 'name');
-      //commentsMailer.newComment(comment);
+      commentsMailer.newComment(comment);
       let job = queue.create("emails", comment).save(function (err) {
         if (err) {
           console.log("Error insending to the queue", err);
           return;
         }
-        console.log("job enqueued", job.id);
+        //console.log("job enqueued", job.id);
       });
       req.flash("success", "Comment published!");
       return res.redirect("/");
