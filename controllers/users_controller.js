@@ -2,20 +2,35 @@ const User = require("../models/user");
 const fs = require("fs");
 const path = require("path");
 const mongoose = require("mongoose");
+const Friendship = require("../models/friendship");
 
 const resetEmailWorker = require("../workers/resetPassword_mailer");
 const queue = require("../config/kue");
 const Token = require("../models/token");
 
-module.exports.profile = function (req, res) {
-  User.findById(req.params.id)
-    .then((user) => {
-      return res.render("user_profile", {
-        title: "User Profile",
-        profile_user: user,
-      });
-    })
-    .catch((err) => console.log(err));
+module.exports.profile = async function (req, res) {
+  try {
+    const user = await User.findById(req.params.id);
+    let friend1 = await Friendship.findOne({
+      from_user: req.params.id,
+      to_user: req.user.id,
+    });
+    let friend2 = await Friendship.findOne({
+      from_user: req.user.id,
+      to_user: req.params.id,
+    });
+    let friends = false;
+    if (friend1 || friend2) {
+      friends = true;
+    }
+    return res.render("user_profile", {
+      title: "Profile",
+      profile_user: user,
+      friends: friends,
+    });
+  } catch (error) {
+    console.log("Error in displaying User profile", error);
+  }
 };
 
 // render the sign up page
