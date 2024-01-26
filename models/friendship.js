@@ -3,12 +3,12 @@ const mongoose = require("mongoose");
 const friendshipSchema = new mongoose.Schema(
   {
     //the user who sen this requst
-    from_user: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
     //the user who accepted this request
-    to_user: {
+    user_to: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
