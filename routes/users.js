@@ -22,6 +22,12 @@ router.get("/sign-in", usersConrtoller.signIn);
 
 router.post("/create", usersConrtoller.create);
 
+//forget password
+router.get('/forgot-password',usersConrtoller.forgotPassword);
+router.get('/change-password/:id',usersConrtoller.changePassword)
+router.post('/reset-password',usersConrtoller.resetPassword);
+router.post('/updatePassword/:id',usersConrtoller.updatePassword);
+
 //use passport as a middleware to authenticate
 router.post(
   "/create-session",
