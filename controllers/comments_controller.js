@@ -20,7 +20,8 @@ module.exports.create = async function (req, res) {
       post.comments.unshift(comment); //unshift add at start of array
       post.save();
 
-      commentsMailer.newComment(comment);
+      comment = await comment.populate("user", "name email");
+      //commentsMailer.newComment(comment);
       let job = queue.create("emails", comment).save(function (err) {
         if (err) {
           console.log("Error insending to the queue", err);
@@ -30,7 +31,6 @@ module.exports.create = async function (req, res) {
       });
       if (req.xhr) {
         // Similar for comments to fetch the user's id!
-        comment = await comment.populate("user", "name");
 
         return res.status(200).json({
           data: {

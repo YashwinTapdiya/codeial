@@ -11,7 +11,7 @@ exports.newComment = (comment) => {
 
   nodeMailer.transporter.sendMail(
     {
-      from: "orlando.rau@ethereal.email",
+      from: process.env.EMAIL,
       to: comment.user.email,
       subject: "New Comment Published: ",
       html: htmlString,
