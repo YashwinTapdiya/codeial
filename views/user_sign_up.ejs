@@ -1,6 +1,10 @@
 <link rel="stylesheet" href="/css/user_sign_up.css" />
 <h1>Sign Up</h1>
 
+<div id="google-auth">
+  <a href="/users/auth/google"> Google Sign In/Sign Up</a>
+</div>
+
 <form action="/users/create" method="POST">
   <input type="text" name="name" placeholder="Your Name" required />
   <input type="email" name="email" placeholder="Your Email" required />
@@ -13,6 +17,3 @@
   />
   <input type="submit" value="Sign Up" />
 </form>
-<p>
-  <a href="/users/auth/google"> Google Sign In/Sign Up</a>
-</p>

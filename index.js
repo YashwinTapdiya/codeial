@@ -4,6 +4,8 @@ const app = express();
 const port = 8000;
 const expressLayouts = require("express-ejs-layouts");
 const db = require("./config/mongoose");
+const dotenv = require('dotenv');
+dotenv.config();
 
 //used for session cookie and authentication passport
 const session = require("express-session");

@@ -38,3 +38,21 @@ form input[type="submit"] {
 form input[type="submit"]:hover {
   background-color: #555;
 }
+
+
+#google-auth {
+  margin: auto;
+  width: 20%;
+  background-color: #8cafe8;
+  color: #ffffff;
+  padding: 15px;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+#google-auth:hover {
+  background-color: #3c78d8;
+}
