@@ -1,12 +1,11 @@
-// Let's implement this via classes
-
-// this class would be initialized for every post on the page
+// This class would be initialized for every post on the page
 // 1. When the page loads
 // 2. Creation of every post dynamically via AJAX
 
 class PostComments {
-  // constructor is used to initialize the instance of the class whenever a new instance is created
+  // Constructor is used to initialize the instance of the class whenever a new instance is created
   constructor(postId) {
+    console.log(postId);
     this.postId = postId;
     this.postContainer = $(`#post-${postId}`);
     this.newCommentForm = $(`#post-${postId}-comments-form`);
@@ -14,8 +13,8 @@ class PostComments {
     this.createComment(postId);
 
     let self = this;
-    // call for all the existing comments
-    $(" .comment_delete_link", this.postContainer).each(function () {
+    // Call for all the existing comments
+    $(" .delete-comment-button", this.postContainer).each(function () {
       self.deleteComment($(this));
     });
   }
@@ -28,16 +27,16 @@ class PostComments {
 
       $.ajax({
         type: "post",
-        url: "/comments/createComment",
+        url: "/comments/create",
         data: $(self).serialize(),
         success: function (data) {
           let comment = data.data.comment;
-          const newComment = pSelf.createcommmentDom(comment);
+          const newComment = pSelf.createCommentDom(comment);
           $(`#post-comments-${postId}`).prepend(newComment);
-          pSelf.deleteComment($(" .comment_delete_link", newComment));
+          pSelf.deleteComment($(" .delete-comment-button", newComment));
           new ToggleLike($(" .toggle-like-button", newComment));
           $(`#post-${postId}-comments-form>input`).val("");
-          $(`#comments-length-${postId}`).html(data.data.allComments.length)
+          //$(`#comments-length-${postId}`).html(data.data.allComments.length);
 
           new Noty({
             theme: "relax",
@@ -54,40 +53,23 @@ class PostComments {
     });
   }
 
-  createcommmentDom(comment) {
-    return $(`<div  id="comment-${comment._id}"  class="diplayed_comment">
-    <div class="left_container">
-
-    <a href="/users/profile?id=${comment.user._id}">
-      <h4>${comment.user.name}:</h4>
-    </a>
-  
-    <p>${comment.comment}</p>
-    </div>
-    <div class="comment_delete_container">
-    <div class="like_btn_container">
-    <a
-      class="toggle-like-button"
-      data-likes=${comment.likes.length}
-      href="/likes/toggle?id=${comment._id}&type=Comment"
-    >
-      <i id="Comment-${comment._id}" class="fa-regular fa-heart"></i>
-
-      <span style="margin: 0 10px 0 -8px">${comment.likes.length}</span>
-    </a>
-  </div>
-    <div class="comment_delete_btn_conatiner" id="comment-${comment._id}">
-      <a class="comment_delete_link" href="/comments/destroy/?id=${comment._id}">
-        <img
-          width="100%"
-          height="100%"
-          src="https://cdn-icons-png.flaticon.com/512/2976/2976286.png"
-          alt=""
-        />
-      </a>
-    </div>
-    </div>
-    </div>`);
+  createCommentDom(comment) {
+    return $(`<li id="comment-${comment._id}">
+      <p>
+        <small>
+          <a class="delete-comment-button" href="/comments/destroy/${comment._id}">X</a>
+        </small>
+        ${comment.content}
+        <br />
+        <small> Comment from: ${comment.user.name} </small>
+        <br />
+        <small>
+          <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${comment._id}&type=Comment">
+            0 Likes
+          </a>
+        </small>
+      </p>
+    </li>`);
   }
 
   deleteComment(deleteLink) {
@@ -100,8 +82,7 @@ class PostComments {
         success: function (data) {
           $(`#comment-${data.data.comment_id}`).remove();
 
-          $(`#comments-length-${data.data.postId}`).html(data.data.allComments.length)
-
+         // $(`#comments-length-${data.data.postId}`).html(data.data.allComments.length);
 
           new Noty({
             theme: "relax",

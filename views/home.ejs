@@ -1,4 +1,6 @@
 <link rel="stylesheet" href="/css/home.css" />
+<link rel="stylesheet" href="/css/chat_box.css" />
+<link rel="stylesheet" href="/css/post.css" />
 <div id="home-container">
   <section id="user-nav">
     <h4>User</h4>
@@ -24,7 +26,7 @@
       <input type="submit" value="POST" />
     </form>
     <% } %>
-    <div id="posts-list-container">
+    <div id="post-list-container">
       <ul>
         <% for(post of posts){ %> <%- include('_post'); %> <% } %>
       </ul>
@@ -50,5 +52,5 @@
 </div>
 
 <!-- importing this scripts for creating the comments  -->
-<script src="/js/home_posts.js"></script>
 <script src="/js/home_post_controller.js"></script>
+<script src="/js/home_posts.js"></script>

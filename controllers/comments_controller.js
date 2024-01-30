@@ -18,9 +18,9 @@ module.exports.create = async function (req, res) {
       //comment = await comment.populate('user', 'name email');
       //post.comments.push(comment);
       post.comments.unshift(comment); //unshift add at start of array
-      post.save();
+      await post.save();
 
-      comment = await comment.populate("user", "name email");
+      comment = await comment.populate("user", ["name","email"]);
       //commentsMailer.newComment(comment);
       let job = queue.create("emails", comment).save(function (err) {
         if (err) {
@@ -40,7 +40,7 @@ module.exports.create = async function (req, res) {
         });
       }
       req.flash("success", "Comment published!");
-      return res.redirect("/");
+      return res.redirect("back");
     }
   } catch (err) {
     console.log("Error in creating comment to post", err);

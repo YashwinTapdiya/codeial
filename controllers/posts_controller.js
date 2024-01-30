@@ -23,7 +23,7 @@ module.exports.create = async function (req, res) {
     return res.redirect("back");
   } catch (error) {
     console.log("Error in creating a post", error);
-    return;
+    return res.redirect("back");
   }
 };
 
