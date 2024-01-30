@@ -1,7 +1,7 @@
-<link rel="stylesheet" href="/css/comment.css">
+<link rel="stylesheet" href="/css/comment.css" />
 <li id="comment-<%= comment._id %>">
   <p>
-    <% if(locals.user && locals.user.id==comment.user.id) { %>
+    <% if(locals.user && locals.user.id == comment.user.id) { %>
     <small>
       <a
         class="delete-comment-button"
@@ -11,7 +11,7 @@
     </small>
     <% } %> <%= comment.content %>
     <br />
-    <small> comment from: <%= comment.user.name %> </small>
+    <small> Comment from: <%= comment.user.name %> </small>
     <br />
     <small>
       <% if(locals.user) { %>
@@ -20,7 +20,12 @@
         data-likes="<%= comment.likes.length %>"
         href="/likes/toggle/?id=<%=comment._id%>&type=Comment"
       >
-        <%= comment.likes.length %> Likes
+        <% try { let likes = []; likes = comment.likes.filter(like =>
+        (like.user._id.toString() === locals.user._id.toString()) &&
+        (like.onModel === "Comment") && (comment._id.toString() ===
+        like.likeable._id.toString()) ); if(likes.length > 0){ %> <% } else { %>
+        <% } } catch(err) { console.log(err); } %>
+        <span><%= comment.likes.length %> Likes </span>
       </a>
       <% } else { %> <%= comment.likes.length %> Likes <% } %>
     </small>

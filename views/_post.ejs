@@ -15,6 +15,18 @@
         <small>
             <% if(locals.user) { %>
                 <a class="toggle-like-button" data-likes="<%= post.likes.length %>" href="/likes/toggle/?id=<%=post._id%>&type=Post">
+                    <% try { 
+                        let likes = []; 
+                        likes = post.likes.filter(like =>
+                            (like.user._id.toString() === locals.user._id.toString()) &&
+                            (like.onModel === "Post") && (post._id.toString() === like.likeable._id.toString())
+                        ); 
+                        if(likes.length > 0){ %>
+                            <% }else{ %>          
+                            <% }
+                        } catch(err) {
+                            console.log(err);
+                        } %>
                     <%= post.likes.length %> Likes
                 </a>
             <% } else { %>
@@ -23,7 +35,7 @@
         </small>
         <div class="post-comments" id="post-<%= post._id %>">
             <% if(locals.user) { %>
-                 <!-- let's give an id to the new comment form, we'll also need to make the same changes in home_posts.js where we're adding a post to the page -->
+                <!-- let's give an id to the new comment form, we'll also need to make the same changes in home_posts.js where we're adding a post to the page -->
                 <form id="post-<%= post._id %>-comments-form" action="/comments/create" method="POST">
                     <input type="text" name="content" placeholder="Write a comment..." required>
                     <input type="hidden" name="post" value="<%= post._id %>">
