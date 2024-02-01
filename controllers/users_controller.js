@@ -136,22 +136,20 @@ module.exports.resetPassword = async function (req, res) {
   let user = await User.findOne({ email: req.body.email });
   //console.log(user);
   let token = await Token.create({ isValid: true, user: user });
-  // let job = queue.create("reset", token).save(function (err) {
-  //   if (err) {
-  //     console.log("error in creating queue", err);
-  //     return;
-  //   }
-  //   console.log("enqueued", job.id);
-  // });
+  let job = queue.create("reset", token).save(function (err) {
+    if (err) {
+      console.log("error in creating queue", err);
+      return;
+    }
+    console.log("enqueued", job.id);
+  });
   res.render("reset_email_sent", {
-    title: "Mail Inbox",
-    data: token,
+    title: "Mail Inbox"
   });
 };
 
 //render the update password page
 module.exports.changePassword = async function (req, res) {
-  //  console.log("ainside cahnge password in user controller",req.params.id);
   let token = await Token.findById(req.params.id);
   if (!token || token.isValid == false) {
     res.render("user_sign_in", {
