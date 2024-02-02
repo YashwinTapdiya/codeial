@@ -39,7 +39,6 @@
 
   // method to create a post in the DOM
   let newPostDom = function (post) {
-    console.log(post.user);
     return $(`<li id="post-${post._id}">
       <p>
           <small>
@@ -100,7 +99,6 @@
   // and call the delete post method on the delete link of each,
   // also add AJAX (using the class we've created) to the delete button of each
   let convertPostsToAjax = function () {
-    console.log("inside convertAjax");
     $("#post-list-container>ul>li").each(function () {
       let self = $(this);
       let deleteButton = $(".delete-post-button", self);

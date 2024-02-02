@@ -8,17 +8,16 @@ exports.reset = (data) => {
 
   nodeMailer.transporter.sendMail(
     {
-      from: process.env.EMAIL ,
+      from: process.env.EMAIL,
       to: data.user.email,
       subject: "Link for Reset Password",
       html: htmlString,
     },
-    (err, info) => {
-      if (err) {
-        console.log("error in sending mail", err);
+    (error, info) => {
+      if (error) {
+        console.log("error in sending mail", error);
         return;
       }
-      //  console.log('mail delivered',info);
       return;
     }
   );

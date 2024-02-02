@@ -32,7 +32,7 @@ module.exports.destroy = async function (req, res) {
     let post = await Post.findById(req.params.id);
     if (post.user == req.user.id) {
       //User can only delete it own posts
-
+      
       // delete the associated likes for the post and all its comments likes too
       // "$in" operator will select all the comments (comment._id) from the 'post.comments' array
       await Like.deleteMany({ likeable: post, onModel: "Post" });
@@ -40,12 +40,12 @@ module.exports.destroy = async function (req, res) {
 
       await post.deleteOne();
       await Comment.deleteMany({ post: req.params.id });
-      if(req.xhr){
+      if (req.xhr) {
         return res.status(200).json({
           data: {
-            post_id: req.params.id
+            post_id: req.params.id,
           },
-          message: "Post Deleted"
+          message: "Post Deleted",
         });
       }
       req.flash("success", "Post and associated comments deleted!");

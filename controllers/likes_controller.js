@@ -41,8 +41,8 @@ module.exports.toggleLike = async function (req, res) {
     return res.status(200).json({
       message: "Request successful!",
       data: {
-        deleted: deleted
-      }
+        deleted: deleted,
+      },
     });
   } catch (error) {
     console.log("Error in liking", error);

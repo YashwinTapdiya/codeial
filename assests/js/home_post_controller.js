@@ -5,7 +5,6 @@
 class PostComments {
   // Constructor is used to initialize the instance of the class whenever a new instance is created
   constructor(postId) {
-    console.log(postId);
     this.postId = postId;
     this.postContainer = $(`#post-${postId}`);
     this.newCommentForm = $(`#post-${postId}-comments-form`);
@@ -24,7 +23,6 @@ class PostComments {
     this.newCommentForm.submit(function (e) {
       e.preventDefault();
       let self = this;
-
       $.ajax({
         type: "post",
         url: "/comments/create",
@@ -36,8 +34,6 @@ class PostComments {
           pSelf.deleteComment($(" .delete-comment-button", newComment));
           new ToggleLike($(" .toggle-like-button", newComment));
           $(`#post-${postId}-comments-form>input`).val("");
-          //$(`#comments-length-${postId}`).html(data.data.allComments.length);
-
           new Noty({
             theme: "relax",
             text: "Comment published!",
@@ -75,15 +71,11 @@ class PostComments {
   deleteComment(deleteLink) {
     $(deleteLink).click(function (e) {
       e.preventDefault();
-
       $.ajax({
         type: "get",
         url: $(deleteLink).prop("href"),
         success: function (data) {
           $(`#comment-${data.data.comment_id}`).remove();
-
-         // $(`#comments-length-${data.data.postId}`).html(data.data.allComments.length);
-
           new Noty({
             theme: "relax",
             text: "Comment Deleted",

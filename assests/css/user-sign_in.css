@@ -39,7 +39,6 @@ form input[type="submit"]:hover {
   background-color: #555;
 }
 
-
 #google-auth {
   margin: auto;
   width: 20%;
@@ -57,7 +56,7 @@ form input[type="submit"]:hover {
   background-color: #3c78d8;
 }
 
-#forgot-password{
+#forgot-password {
   margin: auto;
   width: 20%;
   background-color: #8cafe8;

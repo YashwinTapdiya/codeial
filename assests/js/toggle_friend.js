@@ -1,5 +1,3 @@
-console.log("jsFile");
-
 {
   let makeFriend = function () {
     let toggleFriend = $("#toggle-friend");

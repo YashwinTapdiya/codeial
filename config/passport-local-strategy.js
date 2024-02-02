@@ -2,8 +2,6 @@ const User = require("../models/user");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 
-//update passport-local strategy code to use the promise-based syntax
-
 // Configure the local strategy for passport
 passport.use(
   new LocalStrategy(
@@ -40,8 +38,8 @@ passport.deserializeUser(async function (id, done) {
   try {
     const user = await User.findById(id);
     return done(null, user);
-  } catch (err) {
-    return done(err);
+  } catch (error) {
+    return done(error);
   }
 });
 
@@ -51,7 +49,6 @@ passport.checkAuthentication = function (req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
-
   // if the user is not signed in
   return res.redirect("/users/sign-in");
 };

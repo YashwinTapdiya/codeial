@@ -16,13 +16,11 @@ exports.newComment = async (comment) => {
       subject: "New Comment Published: ",
       html: htmlString,
     },
-    (err, info) => {
-      if (err) {
-        console.log("Error in sending mail", err);
+    (error, info) => {
+      if (error) {
+        console.log("Error in sending mail", error);
         return;
       }
-
-      //console.log("Message sent", info);
       return;
     }
   );

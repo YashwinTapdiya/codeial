@@ -1,88 +1,66 @@
 const express = require("express");
-const cookieParser = require("cookie-parser");
-const app = express();
-const port = 8000;
-const expressLayouts = require("express-ejs-layouts");
-const db = require("./config/mongoose");
-const dotenv = require('dotenv');
+const dotenv = require("dotenv");
 dotenv.config();
-
-//used for session cookie and authentication passport
+const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const passport = require("passport");
 const passportLocal = require("./config/passport-local-strategy");
 const passportJWT = require("./config/passport-jwt-strategy");
 const passportGoogle = require("./config/passport-google-oauth2-strategy");
-
-const MongoDBStore = require("connect-mongodb-session")(session);
+const expressLayouts = require("express-ejs-layouts");
 const flash = require("connect-flash");
+const db = require("./config/mongoose");
+const MongoDBStore = require("connect-mongodb-session")(session);
 const customMware = require("./config/middleware");
+
+const app = express();
+const port = 8000;
+
 const store = new MongoDBStore({
   mongooseConnection: db,
   uri: "mongodb://127.0.0.1:27017/InstaBook-Development",
   collection: "mySessions",
   autoRemove: "disabled",
 });
-// Catch errors
 store.on("error", function (error) {
-  //console.log(error);
+  console.log("Error in connceting to MongoStore",error);
 });
-const sassMiddleware = require("sass-middleware");
-app.use(
-  sassMiddleware({
-    src: "./assets/scss",
-    dest: "./assets/css",
-    debug: true,
-    outputStyle: "extended",
-    prefix: "/css",
-  })
-);
 
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extnded: true }));
 app.use(cookieParser());
 app.use(express.static("./assests"));
 app.use(expressLayouts);
-
 //make the uploads path avaliable to browser
 app.use("/uploads", express.static(__dirname + "/uploads"));
-
 //extract style and scripts from sub pages into the layout
 app.set("layout extractStyles", true);
 app.set("layout extractScripts", true);
-
 //set up the view engine
 app.set("view engine", "ejs");
 app.set("views", "./views");
-
 app.use(
   require("express-session")({
     name: "InstaWall",
     secret: "This is a secret",
     cookie: {
-      maxAge: 1000 * 60 * 60 , // 1 hr
+      maxAge: 1000 * 60 * 60, // 1 hr
     },
     store: store,
     resave: false,
     saveUninitialized: false,
   })
 );
-
 app.use(passport.initialize());
 app.use(passport.session());
-
 app.use(passport.setAuthenticatedUser);
-
 app.use(flash());
 app.use(customMware.setFlash);
-
 //use express router
 app.use("/", require("./routes"));
-
-app.listen(port, function (err) {
-  if (err) {
-    //console.log('Error' , err);
+app.listen(port, function (error) {
+  if (error) {
     //interpolation method
-    console.log(`Error in running the server : ${err}`);
+    console.log(`Error in running the server : ${error}`);
   }
   console.log(`Server is running on port : ${port}`);
 });

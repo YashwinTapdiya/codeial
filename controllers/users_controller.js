@@ -1,9 +1,8 @@
-const User = require("../models/user");
 const fs = require("fs");
 const path = require("path");
 const mongoose = require("mongoose");
 const Friendship = require("../models/friendship");
-
+const User = require("../models/user");
 const resetEmailWorker = require("../workers/resetPassword_mailer");
 const queue = require("../config/kue");
 const Token = require("../models/token");
@@ -67,8 +66,8 @@ module.exports.create = async function (req, res) {
     } else {
       return res.redirect("back");
     }
-  } catch (err) {
-    console.log("Error in signing up:", err);
+  } catch (error) {
+    console.log("Error in signing up:", error);
     return res.redirect("back");
   }
 };
@@ -77,9 +76,9 @@ module.exports.update = async function (req, res) {
   if (req.user.id == req.params.id) {
     try {
       let user = await User.findById(req.params.id);
-      User.uploadedAvatar(req, res, function (err) {
-        if (err) {
-          console.log("Multer Error:", err);
+      User.uploadedAvatar(req, res, function (error) {
+        if (error) {
+          console.log("Multer Error:", error);
         }
 
         user.name = req.body.name;
@@ -110,9 +109,9 @@ module.exports.createSession = function (req, res) {
 
 //sign out
 module.exports.destorySession = function (req, res) {
-  req.logout(function (err) {
-    if (err) {
-      console.log("Error in logging out:", err);
+  req.logout(function (error) {
+    if (error) {
+      console.log("Error in logging out:", error);
       return;
     }
   });
@@ -132,16 +131,13 @@ module.exports.forgotPassword = function (req, res) {
 
 //create token and send link to email for password change
 module.exports.resetPassword = async function (req, res) {
-  // console.log(req.body);
   let user = await User.findOne({ email: req.body.email });
-  //console.log(user);
   let token = await Token.create({ isValid: true, user: user });
-  let job = queue.create("reset", token).save(function (err) {
-    if (err) {
-      console.log("error in creating queue", err);
+  let job = queue.create("reset", token).save(function (error) {
+    if (error) {
+      console.log("error in creating queue", error);
       return;
     }
-    console.log("enqueued", job.id);
   });
   res.render("reset_email_sent", {
     title: "Mail Inbox"
@@ -157,12 +153,10 @@ module.exports.changePassword = async function (req, res) {
     });
     return;
   } else {
-    console.log(typeof req.params.id);
     // const userId =  new mongoose.Types.ObjectId(req.params.id);
     // console.log(typeof (userId));
 
     let token = await Token.findByIdAndUpdate(req.params.id, { isValid: true });
-    console.log(token, "token");
     // let user = await User.findById(token.user);
     // console.log(user,'usercheck');
     res.render("changePassword", {
@@ -173,35 +167,27 @@ module.exports.changePassword = async function (req, res) {
 };
 
 module.exports.updatePassword = async function (req, res) {
-  console.log(req.params.id);
-  console.log(req.body);
   const userId = new mongoose.Types.ObjectId(req.params.id);
 
   // let user = await User.findById(userId);
 
   const user = await User.findOne({ _id: userId });
 
-  console.log(user);
   try {
     if (req.body.password != req.body.confirm_password) {
-      console.log("password not matching");
+      //console.log("password not matching");
       //console.log(req.body.password, req.body.confirm_password);
       return res.redirect("back");
     }
     // console.log(req.params.id,'params')
     const user = await User.findOne({ _id: req.body.id });
     if (!user) {
-      console.log(user);
       res.render("user_sign_up", {
         title: "signUp",
       });
       return;
     } else {
-      console.log(user);
-
       await User.findByIdAndUpdate(user.id, { password: req.body.password });
-      console.log("changedddd******");
-      console.log(user.password);
       res.render("user_sign_in", {
         title: "SignIn",
       });

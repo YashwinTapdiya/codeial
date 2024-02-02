@@ -1,18 +1,20 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const tokenSchema = new mongoose.Schema({
-    isValid:{
-        type: Boolean,
-        required:true
+const tokenSchema = new mongoose.Schema(
+  {
+    isValid: {
+      type: Boolean,
+      required: true,
     },
-    user:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-},{
-    timestamps:true
-});
-
-const Token = mongoose.model('Token',tokenSchema);
+const Token = mongoose.model("Token", tokenSchema);
 module.exports = Token;
