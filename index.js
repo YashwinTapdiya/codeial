@@ -13,9 +13,10 @@ const db = require("./config/mongoose");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const customMware = require("./config/middleware");
 const env = require("./config/environment");
+const logger = require("morgan");
 
 const app = express();
-const port = 8000;
+const port = process.env.PORT || 8000;
 
 const store = new MongoDBStore({
   mongooseConnection: db,
@@ -33,6 +34,7 @@ app.use(express.static(env.asset_path));
 app.use(expressLayouts);
 //make the uploads path avaliable to browser
 app.use("/uploads", express.static(__dirname + "/uploads"));
+app.use(logger(env.morgan.mode, env.morgan.options));
 //extract style and scripts from sub pages into the layout
 app.set("layout extractStyles", true);
 app.set("layout extractScripts", true);
@@ -41,7 +43,7 @@ app.set("view engine", "ejs");
 app.set("views", "./views");
 app.use(
   require("express-session")({
-    name: "InstaWall",
+    name: "InstaBook",
     secret: env.session_cookie_key,
     cookie: {
       maxAge: 1000 * 60 * 60, // 1 hr
