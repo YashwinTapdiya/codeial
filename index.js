@@ -12,6 +12,7 @@ const flash = require("connect-flash");
 const db = require("./config/mongoose");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const customMware = require("./config/middleware");
+const env = require("./config/environment");
 
 const app = express();
 const port = 8000;
@@ -23,12 +24,12 @@ const store = new MongoDBStore({
   autoRemove: "disabled",
 });
 store.on("error", function (error) {
-  console.log("Error in connceting to MongoStore",error);
+  console.log("Error in connceting to MongoStore", error);
 });
 
 app.use(express.urlencoded({ extnded: true }));
 app.use(cookieParser());
-app.use(express.static("./assests"));
+app.use(express.static(env.asset_path));
 app.use(expressLayouts);
 //make the uploads path avaliable to browser
 app.use("/uploads", express.static(__dirname + "/uploads"));
@@ -41,7 +42,7 @@ app.set("views", "./views");
 app.use(
   require("express-session")({
     name: "InstaWall",
-    secret: "This is a secret",
+    secret: env.session_cookie_key,
     cookie: {
       maxAge: 1000 * 60 * 60, // 1 hr
     },
