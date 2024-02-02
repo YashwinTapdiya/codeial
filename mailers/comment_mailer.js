@@ -6,7 +6,7 @@ exports.newComment = async (comment) => {
 
   let htmlString = nodeMailer.renderTemplate(
     { comment: comment },
-    "/comments/new_comment.ejs"
+    "/comments/comment_mailer.ejs"
   );
 
   const info = await nodeMailer.transporter.sendMail(
