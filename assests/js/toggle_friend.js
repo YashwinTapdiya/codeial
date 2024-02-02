@@ -7,7 +7,7 @@ console.log("jsFile");
       e.preventDefault();
       $.ajax({
         type: "POST",
-        url: toggleFriend.attr("href"),
+        url: $(toggleFriend).attr("href"),
       })
         .done(function (data) {
           if (data.data.deleted == false) red();

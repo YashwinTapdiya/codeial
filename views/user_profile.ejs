@@ -42,13 +42,13 @@
 <% if(user.id != profile_user.id) {%> <% if(friends==false) {%>
 <p id="friend-style">
   <a href="/friends/toggle/?id=<%=profile_user.id%>" id="toggle-friend"
-    >add friend</a
+    >Add Friend</a
   >
 </p>
 <%}%> <% if(friends==true) {%>
 <p id="friend-style">
   <a href="/friends/toggle/?id=<%=profile_user.id%>" id="toggle-friend"
-    >remove friend</a
+    >Remove Friend</a
   >
 </p>
 <%}%> <%}%>
