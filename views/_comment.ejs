@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="/css/comment.css" />
 <li id="comment-<%= comment._id %>">
-  <p>
+  <p id="comment-para">
     <% if(locals.user && locals.user.id == comment.user.id) { %>
     <small>
       <a

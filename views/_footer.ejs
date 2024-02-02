@@ -2,13 +2,14 @@
   <div>
     <p>InstaBook. All Rights Reserved</p>
   </div>
-
-  <div>
-    <a href="/">Home</a>
-    <%if(locals.user) { %>
-    <a href="/users/profile/<%= user.id %>">Profile</a>
-    <% } else { %>
-    <a href="/users/sign-in">Sign In</a>
-    <% } %>
+  <div id="footer-links">
+    <p>
+      <a href="/">Home</a>
+      <%if(locals.user) { %>
+      <a href="/users/profile/<%= user.id %>">Profile</a>
+      <% } else { %>
+      <a href="/users/sign-in">Sign In</a>
+      <% } %>
+    </p>
   </div>
 </footer>

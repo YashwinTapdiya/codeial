@@ -1,14 +1,20 @@
 <link rel="stylesheet" href="/css/user_profile.css" />
 <h1>InstaBook / Profile Page</h1>
 
-<img id="profile-image" src="<%= user.avatar %>" alt="<%= user.name %>" />
-
 <p><%= profile_user.name %></p>
 <p><%= profile_user.email %></p>
-<p><%= profile_user._id %></p>
 
 <% if(user.id == profile_user.id){ %>
 <!-- if user matches then show the form -->
+<% if(user.avatar){ %>
+<img id="profile-image" src="<%= user.avatar %>" alt="<%= user.name %>" />
+<% }else{ %>
+<img
+  id="profile-image"
+  src="https://png.pngtree.com/element_our/png/20181206/users-vector-icon-png_260862.jpg"
+  alt="<%= user.name %>"
+/>
+<% } %>
 <form
   action="/users/update/<%= profile_user.id %>"
   method="POST"
@@ -28,15 +34,26 @@
     value="<%= profile_user.email %>"
     required
   />
+  <label for="file">Choose photo</label>
   <input type="file" name="avatar" placeholder="Profile Picture" />
   <input type="submit" value="Update" />
 </form>
 
 <%}else{%>
 <!-- else show only the profile info -->
-<p><%= profile_user.name %></p>
-<p><%= profile_user.email %></p>
-<%} %>
+<% if(profile_user.avatar){ %>
+<img
+  id="profile-image"
+  src="<%= profile_user.avatar %>"
+  alt="<%= profile_user.name %>"
+/>
+<% }else{ %>
+<img
+  id="profile-image"
+  src="https://png.pngtree.com/element_our/png/20181206/users-vector-icon-png_260862.jpg"
+  alt="<%= profile_user.name %>"
+/>
+<% } %> <%} %>
 
 <br />
 <% if(user.id != profile_user.id) {%> <% if(friends==false) {%>
@@ -52,4 +69,4 @@
   >
 </p>
 <%}%> <%}%>
-<script src="/js/toggle_friend.js"></script> 
+<script src="/js/toggle_friend.js"></script>
