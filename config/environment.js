@@ -60,7 +60,7 @@ const production = {
   },
 };
 
-module.exports = development;
-  // eval(process.env.INSTABOOK_ENVIRONMENT) == undefined
-  //   ? development
-  //   : eval(process.env.INSTABOOK_ENVIRONMENT);
+module.exports =
+  eval(process.env.INSTABOOK_ENVIRONMENT) == undefined
+    ? development
+    : eval(process.env.INSTABOOK_ENVIRONMENT);

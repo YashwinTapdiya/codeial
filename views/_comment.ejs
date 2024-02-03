@@ -1,4 +1,5 @@
-<link rel="stylesheet" href="/css/comment.css" />
+<link rel="stylesheet" href="<%= assetPath('css/comment.css') %>" />
+
 <li id="comment-<%= comment._id %>">
   <p id="comment-para">
     <% if(locals.user && locals.user.id == comment.user.id) { %>

@@ -1,6 +1,5 @@
 const express = require("express");
-const dotenv = require("dotenv");
-dotenv.config();
+const dotenv = require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const passport = require("passport");
@@ -15,23 +14,27 @@ const customMware = require("./config/middleware");
 const env = require("./config/environment");
 const logger = require("morgan");
 const sassMiddleware = require("node-sass-middleware");
+const path = require("path");
 
 const app = express();
 const port = process.env.PORT || 8000;
+require("./config/view-helpers")(app);
 
-app.use(
-  sassMiddleware({
-    src: "./assests/scss",
-    dest: "./assests/css",
-    debug: true,
-    oututStyle: "extended",
-    prefix: "/css",
-  })
-);
+if (env.name == "development") {
+  app.use(
+    sassMiddleware({
+      src: path.join(__dirname, env.asset_path, "scss"),
+      dest: path.join(__dirname, env.asset_path, "css"),
+      debug: true,
+      oututStyle: "extended",
+      prefix: "/css",
+    })
+  );
+}
 
 const store = new MongoDBStore({
   mongooseConnection: db,
-  uri: "mongodb://127.0.0.1:27017/InstaBook-Development",
+  uri: `mongodb://127.0.0.1:27017/${env.db}`,
   collection: "mySessions",
   autoRemove: "disabled",
 });

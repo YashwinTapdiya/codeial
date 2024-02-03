@@ -1,0 +1,19 @@
+{
+  "css/change_password.css": "css/change_password-cb0242caf5.css",
+  "css/chat_box.css": "css/chat_box-81229a15c9.css",
+  "css/comment.css": "css/comment-d41d8cd98f.css",
+  "css/footer.css": "css/footer-6be7da5e05.css",
+  "css/forgot_password.css": "css/forgot_password-dcd936a49f.css",
+  "css/header.css": "css/header-280092ad3c.css",
+  "css/home.css": "css/home-550c61d894.css",
+  "css/layout.css": "css/layout-3175d2fdd3.css",
+  "css/post.css": "css/post-d41d8cd98f.css",
+  "css/user-sign_in.css": "css/user-sign_in-53e34c58b2.css",
+  "css/user_profile.css": "css/user_profile-59b5573f0e.css",
+  "css/user_sign_in.css": "css/user_sign_in-53e34c58b2.css",
+  "css/user_sign_up.css": "css/user_sign_up-d5e5e4ea74.css",
+  "js/home_post_controller.js": "js/home_post_controller-87fa259ebb.js",
+  "js/home_posts.js": "js/home_posts-228ef9609a.js",
+  "js/toggle_friend.js": "js/toggle_friend-d1f79fe553.js",
+  "js/toggle_likes.js": "js/toggle_likes-8d45a9d9b8.js"
+}

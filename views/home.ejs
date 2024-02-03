@@ -1,6 +1,7 @@
-<link rel="stylesheet" href="/css/home.css" />
-<link rel="stylesheet" href="/css/chat_box.css" />
-<link rel="stylesheet" href="/css/post.css" />
+<!-- assetPath Is a function in view-helpers that helps to access the correct files -->
+<link rel="stylesheet" href="<%= assetPath('css/home.css') %>" />
+<link rel="stylesheet" href="<%= assetPath('css/chat_box.css') %>" />
+<link rel="stylesheet" href="<%= assetPath('css/post.css') %>" />
 <div id="home-container">
   <section id="user-nav">
     <h1>User</h1>
@@ -58,9 +59,9 @@
 </div>
 
 <!-- importing this scripts for creating the comments  -->
-<script src="/js/home_post_controller.js"></script>
-<script src="/js/home_posts.js"></script>
-<script src="/js/toggle_likes.js"></script>
+<script src="<%= assetPath('js/home_post_comments.js') %>"></script>
+<script src="<%= assetPath('js/home_posts.js') %>"></script>
+<script src="<%= assetPath('js/toggle_likes.js') %>"></script>
 <script>
   $(".toggle-like-button").each(function () {
     let self = this;
