@@ -46,12 +46,12 @@ gulp.task("js", function (done) {
 });
 
 // empty the public/assests directory
-gulp.task("clean:assets", function (done) {
-  del.sync("./public/assets");
+gulp.task("clean:assests", function (done) {
+  del.sync("./public/assests");
   done();
 });
 
-gulp.task("build", gulp.series("clean:assets", "css", "js"), function (done) {
-  console.log("Building assets");
+gulp.task("build", gulp.series("clean:assests", "css", "js"), function (done) {
+  console.log("Building assests");
   done();
 });
