@@ -1,13 +1,11 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
-}
+  background-color: #f9f9f9; }
 
 h1 {
   text-align: center;
   color: #333;
-  margin-top: 50px;
-}
+  margin-top: 50px; }
 
 form {
   max-width: 300px;
@@ -15,30 +13,40 @@ form {
   padding: 20px;
   background-color: #fff;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-form input[type="text"],
-form input[type="email"],
-form input[type="password"],
-form input[type="submit"] {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
-
-form input[type="submit"] {
-  background-color: #333;
-  color: #fff;
-  cursor: pointer;
-}
-
-form input[type="submit"]:hover {
-  background-color: #555;
-}
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+  form input[type="text"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px; }
+  form input[type="email"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px; }
+  form input[type="password"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px; }
+  form input[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer; }
+    form input[type="submit"]:hover {
+      background-color: #555; }
 
 #google-auth {
   margin: auto;
@@ -50,9 +58,6 @@ form input[type="submit"]:hover {
   text-align: center;
   text-decoration: none;
   font-size: 18px;
-  transition: background-color 0.3s ease-in-out;
-}
-
-#google-auth:hover {
-  background-color: #3c78d8;
-}
+  transition: background-color 0.3s ease-in-out; }
+  #google-auth:hover {
+    background-color: #3c78d8; }

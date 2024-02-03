@@ -1,9 +1,7 @@
 body {
-    margin: 0;
-    /* text-align: center;
-    background: lightblue; */
-  
-    #layout-main {
-        height: 100%;
-    }
+  margin: 0;
+  #layout-main {
+    height: auto;
+    min-height: 100%;
   }
+}

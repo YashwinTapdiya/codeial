@@ -1,0 +1,81 @@
+$color_1: #333;
+$color_2: #fff;
+$color_3: #ffffff;
+$font-family_1: Arial, sans-serif;
+$background-color_1: #f9f9f9;
+$background-color_2: #fff;
+$background-color_3: #333;
+$background-color_4: #555;
+$background-color_5: #8cafe8;
+$background-color_6: #3c78d8;
+
+body {
+  font-family: $font-family_1;
+  background-color: $background-color_1;
+}
+h1 {
+  text-align: center;
+  color: $color_1;
+  margin-top: 50px;
+}
+form {
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: $background-color_2;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  input[type="text"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  input[type="email"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  input[type="password"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  input[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: $background-color_3;
+    color: $color_2;
+    cursor: pointer;
+    &:hover {
+      background-color: $background-color_4;
+    }
+  }
+}
+#google-auth {
+  margin: auto;
+  width: 20%;
+  background-color: $background-color_5;
+  color: $color_3;
+  padding: 15px;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+  transition: background-color 0.3s ease-in-out;
+  &:hover {
+    background-color: $background-color_6;
+  }
+}

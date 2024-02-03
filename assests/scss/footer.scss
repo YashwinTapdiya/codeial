@@ -1,0 +1,26 @@
+$color_1: white;
+
+#layout-footer {
+  color: $color_1;
+  background: grey;
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-around;
+  a {
+    color: $color_1;
+    text-decoration: none;
+  }
+  .footer-nav {
+    ul {
+      list-style: none;
+    }
+  }
+}
+#footer-links {
+  p {
+    a {
+      margin-left: 15px;
+      padding: 2px;
+    }
+  }
+}

@@ -14,9 +14,20 @@ const MongoDBStore = require("connect-mongodb-session")(session);
 const customMware = require("./config/middleware");
 const env = require("./config/environment");
 const logger = require("morgan");
+const sassMiddleware = require("node-sass-middleware");
 
 const app = express();
 const port = process.env.PORT || 8000;
+
+app.use(
+  sassMiddleware({
+    src: "./assests/scss",
+    dest: "./assests/css",
+    debug: true,
+    oututStyle: "extended",
+    prefix: "/css",
+  })
+);
 
 const store = new MongoDBStore({
   mongooseConnection: db,
